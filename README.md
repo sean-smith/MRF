@@ -4,10 +4,9 @@
 
 For cs542, Machine Learning I implemented a image depixelator to clean up images. You can see the result below:
 
-##### Original Image
-![Original Image](results/orig.png) 
-##### Processed Image
-![Processed Image](results/final.png)
+| Original | Processed |
+| -------- | --------- |
+| ![Original Image](results/a/orig.png) | ![Processed Image](results/a/final.png) |
 
 To run just run `hw5sol.m` in matlab.
 
