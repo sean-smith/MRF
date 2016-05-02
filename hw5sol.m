@@ -1,30 +1,37 @@
+% Sean Smith and Tommy Unger
+% CS 542 Spring 2016
+% Spring 2016
+
+
 %Markov random field
 close all
-im = img_to_bip('bayes_dirty.png');
-y= im;
+%im = img_to_bip('images/bayes_dirty.png');
+im = imread('images/bayes_dirty.png');
+im = int8(im);
+
+im = (im * 2) - 1;
+
+
+y = im;
 sz = size(im);
 xdim = sz(2);
 ydim = sz(1);
-sz
 
 count = 0;
 
 wrapN = @(x, N) (1 + mod(x-1, N));
-z = 1
-h = z * rand(1) - (z/2)
-beta = 10*rand(1)
-eta = 10*rand(1)
-h = -.1
+h = -.01
 beta = 5
-eta = 10
+eta = 3
 change_flag=1;    
 
 
 while (change_flag) 
-    count = count + 1;
+    count = count + 1
     change_flag=0;    
     for i=1:xdim
         for j=1:ydim
+    
             no_flip_energy = energy(   im(j,i ), im( j, wrapN(i+1, xdim)), im( j, wrapN(i-1, xdim)), im( wrapN(j+1, ydim), i ), im( wrapN(j-1, ydim), i ), y(j,i), h, beta, eta );
             flip_energy = energy(-1*im(j,i), im( j, wrapN(i+1, xdim)), im( j, wrapN(i-1, xdim)), im( wrapN(j+1, ydim), i ), im( wrapN(j-1, ydim), i ), y(j,i), h, beta, eta );
             
@@ -34,6 +41,23 @@ while (change_flag)
             end
         end
     end
-    count
     
 end
+
+
+% Convert back to binary data
+im = (im + 1) / 2;
+
+
+correct = imread('images/bayes.png');
+
+% Calculate Accuracy
+accuracy = 1 - (sum(sum(xor(im, correct))) / (xdim * ydim))
+
+% Display
+im = uint8(im);
+imshow(255 * im);
+
+% Show original
+figure();
+imshow(uint8(y) * 255);
